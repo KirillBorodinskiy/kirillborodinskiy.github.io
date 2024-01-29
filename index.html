@@ -3,23 +3,20 @@
     <head>
         <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
         <title>
-            Emigrace české republiky
+            Imigrace české republiky
         </title>
     </head>
 <body>
     <div id="HeaderText">
-        Emigrační analýtika české republiky
+        Imigrační analýtika České Republiky
     </div>
     <div id="Board">
         <div class="text">
-            Emigrace z rozvojových zemí představuje přirozený krok lidí hledajících lepší životní podmínky a nové příležitosti. 
+            Imigrace z rozvojových zemí představuje přirozený krok lidí hledajících lepší životní podmínky a nové příležitosti. 
             Česká republika se v tomto ohledu vyniká, nabízí pohodlné podmínky pro přesídlení ze zemí bývalého Sovětského svazu, Vietnamu, Slovenska a dalších.
             Například podobnost českého jazyka s ruštinou usnadňuje adaptaci pro mluvčí ruštiny. 
             Kromě toho je proces přesunu do České republiky méně byrokratický ve srovnání s okolními zeměmi, což jej činí atraktivnějším a dostupnějším.
         </div>
-        <!-- <div class="graph">
-            <img class="graphPic" src="Graf1.png">
-        </div> -->
         <div class="graph" id="chartContainer1"></div>
         <div class="text">
             Vyhody stěhování do ČR:
@@ -44,16 +41,14 @@
                 </li>
             </ul>
         </div>
-        <!-- <div class="graph">
-            <img class="graphPic" src="Graf2.png">
-        </div> -->
         <div class="graph" id="chartContainer2"></div>
         <div class="text">
+            Jak můžeme pozorovat, v roce 2022 bylo nejvíce imigrantů z Ukrajiny, jako v jiných letech,
+             ale v tento rok  byl jejich počet obzvlášť velký. To je způsobeno tím, že tam začala válka 24. února 2022,
+              a tak v Evropě přibylo mnoho uprchlíků z Ukrajiny. A samozřejmě, Slováci tradičně vedou mezi imigranty a v roce 2022 jsou na druhém místě.
         </div>
-        <!-- <div class="graph">
-            <img class="graphPic" src="Graf3.png">
-        </div> -->
         <div class="graph" id="chartContainer3"></div>
+        <div class="graph" id="chartContainer4"></div>
         <div class="text">
         </div>
 
@@ -78,6 +73,7 @@
     .graph{
         height:30em;
         margin-top: 5%;
+        min-width:fit-content;
     }
     .graphPic{
         width: 100%;
@@ -129,13 +125,13 @@
 <script>
     window.onload = function () {
 	var chart1 = new CanvasJS.Chart("chartContainer1", {
+        animationEnabled: true,
         backgroundColor: "transparent",
         title:{
-                text:"Emigrace v roce 2023",
+                text:"Imigrace v roce 2023",
         },
 		data: [              
 		{
-			// Change type to "doughnut", "line", "splineArea", etc.
 			type: "doughnut",
             indexLabelFontFamily: "myFontBold",
             indexLabelFontSize: 20,
@@ -157,13 +153,13 @@
 	});
 
     var chart2 = new CanvasJS.Chart("chartContainer2", {
+        animationEnabled: true,
         backgroundColor: "transparent",
         title:{
-                text:"Emigrace v roce 2022",
+                text:"Imigrace v roce 2022",
         },
 		data: [              
 		{
-			// Change type to "doughnut", "line", "splineArea", etc.
 			type: "doughnut",
             indexLabelFontFamily: "myFontBold",
             indexLabelFontSize: 20,
@@ -185,13 +181,13 @@
 	});
 
     var chart3 = new CanvasJS.Chart("chartContainer3", {
+        animationEnabled: true,
         backgroundColor: "transparent",
         title:{
-                text:"Emigrace v roce 2021",
+                text:"Imigrace v roce 2021",
         },
 		data: [              
 		{
-			// Change type to "doughnut", "line", "splineArea", etc.
 			type: "doughnut",
             indexLabelFontFamily: "myFontBold",
             indexLabelFontSize: 20,
@@ -211,8 +207,57 @@
 		}
 		]
 	});
+var dataPoints = {
+    "Ukrajina": [68648, 74031, 77603, 81209, 83488, 84996, 86930, 88478, 90776, 93545, 99069],
+    "Slovensko": [36279, 38972, 41739, 44799, 47519, 50229, 53045, 55666, 58843, 62344, 66107],
+    "Vietnam": [43875, 45582, 47019, 48571, 50249, 51405, 52478, 53320, 54390, 55105, 55677],
+    "Rusko": [17224, 18770, 19703, 20763, 21319, 21635, 22158, 22648, 23376, 23783, 24207],
+    "Polsko": [10640, 10652, 10686, 10753, 10788, 10815, 10906, 10970, 11129, 11285, 11418],
+    "Bulharsko": [3677, 3921, 4175, 4516, 4888, 5271, 5714, 6140, 6687, 7192, 7615],
+    "Rumunsko": [2610, 2542, 2688, 2979, 3288, 3729, 4298, 4817, 5545, 6335, 7186],
+    "Mongolsko": [4351, 4728, 4884, 5007, 2794, 5167, 5202, 5293, 5603, 5894, 6353],
+};
+
+var chartData = [];
+Object.keys(dataPoints).forEach(function(country) {
+    var series = {
+        type: "line",
+        name: country,
+        showInLegend: true,
+        indexLabelFontFamily: "myFontBold",
+        indexLabelFontSize: 20,
+        dataPoints: []
+    };
+    dataPoints[country].forEach(function(value, index) {
+        series.dataPoints.push({
+            y: value,
+            label: String(2013 + index),
+            toolTipContent: country + ": " + value + " v roce " + String(2013 + index)
+        });
+    });
+    chartData.push(series);
+});
+
+var chart4 = new CanvasJS.Chart("chartContainer4", {
+    animationEnabled: true,
+    backgroundColor: "transparent",
+    
+    title: {
+        text: "Imigrace v letech 2013-2023"
+    },
+    axisY: {
+        title: "Počet imigrantů",
+    },
+    axisX: {
+        title: "Rok"
+    },
+    data: chartData
+});
+
+
     chart1.render();
     chart2.render();
 	chart3.render();
+	chart4.render();
 }
 </script>
