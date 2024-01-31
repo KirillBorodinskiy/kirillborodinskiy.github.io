@@ -12,7 +12,7 @@
     </div>
     <div id="Board">
         <div class="text">
-            Imigrace z rozvojových zemí představuje přirozený krok lidí hledajících lepší životní podmínky a nové příležitosti. 
+            <dfn title="Změna místa pobytu směrem na území jiného než domovského státu"><u>Imigrace</u></dfn> z rozvojových zemí představuje přirozený krok lidí hledajících lepší životní podmínky a nové příležitosti. 
             Česká republika se v tomto ohledu vyniká, nabízí pohodlné podmínky pro přesídlení ze zemí bývalého Sovětského svazu, Vietnamu, Slovenska a dalších.
             Například podobnost českého jazyka s ruštinou usnadňuje adaptaci pro mluvčí ruštiny. 
             Kromě toho je proces přesunu do České republiky méně byrokratický ve srovnání s okolními zeměmi, což jej činí atraktivnějším a dostupnějším.
@@ -50,13 +50,40 @@
         <div class="graph" id="chartContainer3"></div>
         <div class="graph" id="chartContainer4"></div>
         <div class="text">
+            Zdroj informaci: <a href="https://www.mvcr.cz/clanek/cizinci-s-povolenym-pobytem.aspx">MINISTERSTVO VNITRA ČESKĚ REPUBLIKY</a>
         </div>
 
+    </div>
+    <div id="CapyDiv" onclick="ReturnToTop()">
+        <img src="capy.png" id="CapyPic">
+        <p id="CapyText">Scroll up!</p>
     </div>
 </body>
 </html>
 
 <style>
+    #CapyText{
+        position:absolute;
+        bottom:0;
+        right:0;
+        top:0.5em;
+        line-height: 15px;
+        text-align: center;
+        font-family: myFontBold;
+        font-size: 20px;
+        color:white;
+        text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+    }
+    #CapyPic{
+        width:4em;
+        height:4em;
+    }
+    #CapyDiv{
+        position:fixed;
+        bottom:0;
+        right:0;
+        margin:1em;
+    }
     .text{
         font-size: 20px;
         font-family: myFont;
@@ -123,6 +150,12 @@
 
 </style>
 <script>
+    function ReturnToTop(){
+        window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    }
     window.onload = function () {
 	var chart1 = new CanvasJS.Chart("chartContainer1", {
         animationEnabled: true,
